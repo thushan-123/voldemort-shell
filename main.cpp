@@ -4,6 +4,10 @@
 using namespace std;
 
 
+string output(string str){
+
+    return "Invalid Command";
+}
 
 void shell () {
 
@@ -11,8 +15,9 @@ void shell () {
 
     cout << "$ >";
     getline(cin, input_line);
+    cout << output(input_line);
     cout << endl;
-    
+
 }
 
 
