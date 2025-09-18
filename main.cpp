@@ -6,7 +6,9 @@ using namespace std;
 
 string output(string str){
 
-    return "Invalid Command";
+    string input = str;
+    string invalied_cmd = "invalied_command: ";
+    return invalied_cmd + input;
 }
 
 void shell () {
