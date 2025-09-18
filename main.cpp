@@ -15,11 +15,14 @@ void shell () {
 
     string input_line;
 
-    cout << "$ >";
-    getline(cin, input_line);
-    cout << output(input_line);
-    cout << endl;
+    while (input_line != "exit"){
+        cout << "$ >";
+        getline(cin, input_line);
+        cout << output(input_line);
+        cout << endl;
 
+    }
+   
 }
 
 
@@ -27,5 +30,7 @@ void shell () {
 int main() {
 
     shell();
+
+    return 0;
     
 }
