@@ -41,11 +41,12 @@ string invalied_cmd (string input){
 }
 
 string handle_commands(string input){
-    vector<string> cmd = split_by_space(input);
     
-    if (input.find("echo")){
+    vector<string> cmd = split_by_space(input);
+
+    if (cmd[0] == "echo"){
         return echo_cmd(input);
-    }else if(input.find("type")) {
+    }else if(cmd[0] == "type") {
         return type_cmd(input);
     }else{
         return invalied_cmd(input);
