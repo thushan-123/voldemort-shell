@@ -3,6 +3,12 @@
 
 using namespace std;
 
+string echo_cmd(string input){
+    if(input.find("echo")){
+        return  input.substr(5);
+    }
+}
+
 
 string output(string str){
 
