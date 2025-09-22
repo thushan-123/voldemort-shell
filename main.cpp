@@ -19,7 +19,8 @@ vector<string> split_by_space(const string& input){
 }
 
 string echo_cmd(string input){
-    if(input.find("echo")){
+    vector<string> inputs = split_by_space(input);
+    if(inputs[0] == "echo"){
         return  input.substr(5);
     }
     return "";
