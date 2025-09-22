@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+
 using namespace std;
 
 vector<string> CMDS_ARRAY = {"type" ,"echo" ,"exit"};
@@ -25,11 +26,12 @@ string echo_cmd(string input){
 }
 
 string type_cmd(string input){
+    vector<string> inputs = split_by_space(input);
     string command_name = input.substr(5);
     //command_name.erase(remove(command_name.begin(), command_name.end(), ' '), command_name.end());
     for (const string& cmd : CMDS_ARRAY){
-        if(command_name == cmd){
-            return  cmd + "is a shell builtin";
+        if(inputs[1] == cmd){
+            return  cmd + " is a shell builtin";
         }
     }
     return "invalid_command: not found";
@@ -41,7 +43,7 @@ string invalied_cmd (string input){
 }
 
 string handle_commands(string input){
-    
+
     vector<string> cmd = split_by_space(input);
 
     if (cmd[0] == "echo"){
@@ -86,3 +88,4 @@ int main() {
     return 0;
     
 }
+// g++ -std=c++17 main.cpp 
