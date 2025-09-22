@@ -9,12 +9,16 @@ string echo_cmd(string input){
     }
 }
 
+string invalied_cmd (string input){
+    string invalied_cmd = "invalied_command: ";
+    return invalied_cmd + input;
+}
+
 string handle_commands(string input){
     if (input.find("echo")){
         return echo_cmd(input);
     }else{
-        string invalied_cmd = "invalied_command: ";
-        return invalied_cmd + input;
+        invalied_cmd(input);
     }
 }
 
