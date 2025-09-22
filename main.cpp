@@ -9,6 +9,11 @@ string echo_cmd(string input){
     }
 }
 
+string handle_commands(string input){
+    if (input.find("echo")){
+        return echo_cmd(input);
+    }
+}
 
 string output(string str){
 
