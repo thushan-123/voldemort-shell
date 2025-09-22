@@ -14,6 +14,7 @@ string echo_cmd(string input){
 
 string type_cmd(string input){
     string command_name = input.substr(5);
+    command_name.erase(remove(command_name.begin(), command_name.end(), ' '), command_name.end());
     for (string& cmd : CMDS_ARRAY){
         if(command_name == cmd){
             return  cmd + "is a shell builtin";
