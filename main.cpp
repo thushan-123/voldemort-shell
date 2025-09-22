@@ -18,6 +18,9 @@ void shell () {
     while (input_line != "exit"){
         cout << "$ >";
         getline(cin, input_line);
+        if(input_line == "exit"){
+            continue;
+        }
         cout << output(input_line);
         cout << endl;
 
