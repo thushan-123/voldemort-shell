@@ -23,7 +23,7 @@ string echo_cmd(string input){
     if(inputs[0] == "echo"){
         return  input.substr(5);
     }
-    return "";
+    return " ";
 }
 
 string type_cmd(string input){
