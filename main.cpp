@@ -30,6 +30,8 @@ string invalied_cmd (string input){
 string handle_commands(string input){
     if (input.find("echo")){
         return echo_cmd(input);
+    }else if(input.find("type")) {
+        return type_cmd(input);
     }else{
         invalied_cmd(input);
     }
