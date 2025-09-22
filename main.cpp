@@ -3,6 +3,8 @@
 
 using namespace std;
 
+#define CMD_ARRAY = ["type" ,"echo", "exit"]
+
 string echo_cmd(string input){
     if(input.find("echo")){
         return  input.substr(5);
