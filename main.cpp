@@ -25,8 +25,8 @@ string handle_commands(string input){
 string output(string str){
 
     string input = str;
-    string invalied_cmd = "invalied_command: ";
-    return invalied_cmd + input;
+    string result = handle_commands(input);
+    return result;
 }
 
 void shell () {
