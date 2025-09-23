@@ -9,7 +9,7 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-vector<string> CMDS_ARRAY = {"type" ,"echo" ,"exit", "ls"};
+vector<string> CMDS_ARRAY = {"type" ,"echo" ,"exit"};
 
 vector<string> split_by_space(const string& input){
     vector<string> result;
@@ -83,19 +83,24 @@ string type_cmd(string input){
 
     vector<string> paths = split_string(path_str, ':');
     
-    for (const string& cmd : CMDS_ARRAY){
-        if(inputs[1] == cmd){
-            for (auto current_path: paths){
-                fs::path file_path = fs::path(current_path)/cmd;
+    
+    for (auto current_path: paths){
+        fs::path file_path = fs::path(current_path)/inputs[1];
 
-                if(is_exists_exec(file_path)){
-                    return cmd + " is " + file_path.string();
-                } else {
+        if(is_exists_exec(file_path)){
+            return inputs[1] + " is " + file_path.string();
+            break;
+        } else {
+            for (const string& cmd : CMDS_ARRAY){
+                if(inputs[1] == cmd){
                     return  cmd + " is a shell builtin";
                 }
-            }      
+            }
+                    
         }
-    }
+    }      
+        
+    
     return "invalid_command: not found";
 }
 
