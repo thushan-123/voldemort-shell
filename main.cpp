@@ -22,7 +22,7 @@ vector<string> split_by_space(const string& input){
     return result;
 }
 
-vector<string> splitString(const std::string& str, char delimiter) {
+vector<string> split_string(const string& str, char delimiter) {
     vector<string> tokens;
     std::string currentToken;
     for (char c : str) {
@@ -81,11 +81,19 @@ string type_cmd(string input){
     char *path_ptr = getenv("PATH");
     string path_str(path_ptr);
 
-    //vector<string> paths = splitbychar()
+    vector<string> paths = split_string(path_str, ':');
     
     for (const string& cmd : CMDS_ARRAY){
         if(inputs[1] == cmd){
-            return  cmd + " is a shell builtin";
+            for (auto current_path: paths){
+                fs::path file_path = fs::path(current_path)/cmd;
+
+                if(is_exists_exec(file_path)){
+                    return cmd + " is " + file_path.string();
+                } else {
+                    return  cmd + " is a shell builtin";
+                }
+            }      
         }
     }
     return "invalid_command: not found";
