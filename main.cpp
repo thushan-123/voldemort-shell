@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <filesystem>
 
 using namespace std;
 
@@ -16,6 +17,10 @@ vector<string> split_by_space(const string& input){
     }
 
     return result;
+}
+
+string ls_cmd(string input){
+    
 }
 
 string echo_cmd(string input){
