@@ -3,10 +3,12 @@
 #include <vector>
 #include <sstream>
 #include <filesystem>
+#include <fstream>
 
 using namespace std;
+namespace fs = std::filesystem;
 
-vector<string> CMDS_ARRAY = {"type" ,"echo" ,"exit"};
+vector<string> CMDS_ARRAY = {"type" ,"echo" ,"exit", "ls"};
 
 vector<string> split_by_space(const string& input){
     vector<string> result;
@@ -19,8 +21,28 @@ vector<string> split_by_space(const string& input){
     return result;
 }
 
-string ls_cmd(string input){
+// filesystem::path
+
+string ls_cmd(){
+    // identify the path
+    return " ";
+
+}
+
+bool is_exists_exec(fs::path file_path){
+
+    if(!fs::exists(file_path)){
+        return false;
+    }
+
+    fs::file_status file_status = fs::status(file_path);
+    if (fs::is_regular_file(file_status) && (file_status.permissions() & fs::perms::owner_exec) != fs::perms::none ){
+            return true;
+    }
+
+    return false;
     
+
 }
 
 string echo_cmd(string input){
@@ -39,7 +61,7 @@ string echo_cmd(string input){
 string type_cmd(string input){
     vector<string> inputs = split_by_space(input);
     string command_name = input.substr(5);
-    //command_name.erase(remove(command_name.begin(), command_name.end(), ' '), command_name.end());
+    
     for (const string& cmd : CMDS_ARRAY){
         if(inputs[1] == cmd){
             return  cmd + " is a shell builtin";
