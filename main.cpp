@@ -89,16 +89,14 @@ string type_cmd(string input){
 
         if(is_exists_exec(file_path)){
             return inputs[1] + " is " + file_path.string();
-            break;
-        } else {
-            for (const string& cmd : CMDS_ARRAY){
-                if(inputs[1] == cmd){
-                    return  cmd + " is a shell builtin";
-                }
-            }
-                    
         }
     }      
+
+    for (const string& cmd : CMDS_ARRAY){
+        if(inputs[1] == cmd){
+            return  cmd + " is a shell builtin";
+        }
+    }
         
     
     return "invalid_command: not found";
