@@ -4,6 +4,7 @@
 #include <sstream>
 #include <filesystem>
 #include <fstream>
+#include <bits/stdc++.h>
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -19,6 +20,21 @@ vector<string> split_by_space(const string& input){
     }
 
     return result;
+}
+
+vector<string> splitString(const std::string& str, char delimiter) {
+    vector<string> tokens;
+    std::string currentToken;
+    for (char c : str) {
+        if (c == delimiter) {
+            tokens.push_back(currentToken);
+            currentToken = "";
+        } else {
+            currentToken += c;
+        }
+    }
+    tokens.push_back(currentToken); 
+    return tokens;
 }
 
 // filesystem::path
@@ -61,6 +77,11 @@ string echo_cmd(string input){
 string type_cmd(string input){
     vector<string> inputs = split_by_space(input);
     string command_name = input.substr(5);
+
+    char *path_ptr = getenv("PATH");
+    string path_str(path_ptr);
+
+    //vector<string> paths = splitbychar()
     
     for (const string& cmd : CMDS_ARRAY){
         if(inputs[1] == cmd){
