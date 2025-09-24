@@ -6,11 +6,10 @@
 #include <fstream>
 #include <bits/stdc++.h>
 
-#include "command.h"
+#include "command/command.h"
 
 using namespace std;
 namespace fs = std::filesystem;
-
 
 
 string handle_commands(string input){
@@ -62,5 +61,6 @@ int main() {
     
 }
 // g++ -std=c++17 main.cpp 
+// g++ -std=c++17 main.cpp command/command.cpp -o shell
 
 // PATH="/usr/bin:/usr/local/bin:$PATH"

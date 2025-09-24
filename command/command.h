@@ -8,22 +8,17 @@
 #include <filesystem>
 #include <fstream>
 
-
+using namespace std;
 namespace fs = std::filesystem;
 
+vector<string> split_by_space(const string& input);
 
-extern std::vector<std::string> CMDS_ARRAY;
-
-
-std::vector<std::string> split_by_space(const std::string& input);
-std::vector<std::string> split_string(const std::string& str, char delimiter);
-
-std::string ls_cmd();
+string ls_cmd();
 bool is_exists_exec(fs::path file_path);
 
-std::string echo_cmd(std::string input);
-std::string type_cmd(std::string input, char* path_ptr);
+string echo_cmd(std::string input);
+string type_cmd(std::string input, char* path_ptr);
+string invalied_cmd(std::string input);
 
-std::string invalied_cmd(std::string input);
+#endif
 
-#endif 
