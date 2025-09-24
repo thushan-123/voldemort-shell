@@ -74,12 +74,12 @@ string echo_cmd(string input){
     return " ";
 }
 
-string type_cmd(string input){
+string type_cmd(string input, char *path_ptr){
     vector<string> inputs = split_by_space(input);
     string command_name = input.substr(5);
 
-    char *path_ptr = getenv("PATH");
-    string path_str(path_ptr);
+    char *path_ptr1 = path_ptr;
+    string path_str(path_ptr1);
 
     vector<string> paths = split_string(path_str, ':');
     
@@ -111,10 +111,12 @@ string handle_commands(string input){
 
     vector<string> cmd = split_by_space(input);
 
+    char *path_ptr = getenv("PATH");
+
     if (cmd[0] == "echo"){
         return echo_cmd(input);
     }else if(cmd[0] == "type") {
-        return type_cmd(input);
+        return type_cmd(input, path_ptr);
     }else{
         return invalied_cmd(input);
     }
@@ -154,3 +156,5 @@ int main() {
     
 }
 // g++ -std=c++17 main.cpp 
+
+// PATH="/usr/bin:/usr/local/bin:$PATH"
