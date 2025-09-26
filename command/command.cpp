@@ -83,6 +83,10 @@ string type_cmd(string input, char *path_ptr){
     return "invalid_command: not found";
 }
 
+string custom_execution(string input, char *path_ptr){
+
+}
+
 string invalied_cmd(string input){
     return "invalied_command: " + input;
 }
