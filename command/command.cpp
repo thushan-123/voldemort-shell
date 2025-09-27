@@ -84,6 +84,22 @@ string type_cmd(string input, char *path_ptr){
     return "invalid_command: not found";
 }
 
+bool is_cmd_exec(string input, char *path_ptr){
+    vector<string> inputs = split_by_space(input);
+    char *path_ptr1 = path_ptr;
+    string path_str(path_ptr1);
+
+    vector<string> paths = split_string(path_str, ':');
+
+    for (auto current_path: paths){
+        fs::path file_path = fs::path(current_path)/inputs[1];
+        if(is_exists_exec(file_path)){
+            return true;
+        }
+    }      
+    return false;
+}
+
 string custom_execution(string input, char *path_ptr){ // run the excutable cmd with arguments
 
     vector<string> inputs = split_by_space(input);
@@ -99,9 +115,6 @@ string custom_execution(string input, char *path_ptr){ // run the excutable cmd 
            
         }
     }
-
-    
-    
 }
 
 string invalied_cmd(string input){

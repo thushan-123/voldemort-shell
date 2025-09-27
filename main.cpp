@@ -22,6 +22,8 @@ string handle_commands(string input){
         return echo_cmd(input);
     }else if(cmd[0] == "type") {
         return type_cmd(input, path_ptr);
+    }else if(){
+
     }else{
         return invalied_cmd(input);
     }
