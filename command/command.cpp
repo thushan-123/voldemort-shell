@@ -84,7 +84,7 @@ string type_cmd(string input, char *path_ptr){
     return "invalid_command: not found";
 }
 
-bool is_cmd_exec(string input, char *path_ptr){
+bool is_cmd_exec(string input, char *path_ptr){   // check for the user input is exists
     vector<string> inputs = split_by_space(input);
     char *path_ptr1 = path_ptr;
     string path_str(path_ptr1);
