@@ -100,34 +100,24 @@ bool is_cmd_exec(string input, char *path_ptr){   // check for the user input is
     return false;
 }
 
-string custom_execution(string input, char *path_ptr){ // run the excutable cmd with arguments
+std::string custom_execution(const std::string &input) {
+    const char* path_ptr = getenv("PATH");
+    if (!path_ptr) return "PATH not set";
 
-    vector<string> inputs = split_by_space(input);
-    
-    string user_input = input;
-    string path_str(path_ptr);
-    if (path_ptr != nullptr) {
-        path_str = path_ptr;
-    } else {
-        return "PATH is null";
-    }
-    vector<string> paths = split_string(path_str, ':');
+    std::vector<std::string> inputs = split_by_space(input);
+    std::string path_str(path_ptr);
+    std::vector<std::string> paths = split_string(path_str, ':');
 
-    for (auto current_path: paths){   // find executable paths
-        fs::path file_path = fs::path(current_path)/inputs[0];
-        if(is_exists_exec(file_path)){
-            int result = system(input.c_str());  // system call user aruments
-            if (result){
-                return "success";
-            }else{
-                return "unsuccess";
-            }
-           
+    for (auto &current_path: paths) {
+        fs::path file_path = fs::path(current_path) / inputs[0];
+        if (is_exists_exec(file_path)) {
+            int result = system(input.c_str());
+            return (result == 0) ? "" : "command failed";
         }
     }
-
     return "not found";
 }
+
 
 string invalied_cmd(string input){
     return "invalied_command: " + input;

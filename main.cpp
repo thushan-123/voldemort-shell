@@ -17,6 +17,9 @@ string handle_commands(string input){
     vector<string> cmd = split_by_space(input);
 
     char *path_ptr = getenv("PATH");
+    if (!path_ptr) {
+        path_ptr = strdup("/usr/bin:/usr/local/bin");
+    }
 
     if (cmd[0] == "echo"){
         return echo_cmd(input);
