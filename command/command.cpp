@@ -106,15 +106,27 @@ string custom_execution(string input, char *path_ptr){ // run the excutable cmd 
     
     string user_input = input;
     string path_str(path_ptr);
+    if (path_ptr != nullptr) {
+        path_str = path_ptr;
+    } else {
+        return "PATH is null";
+    }
     vector<string> paths = split_string(path_str, ':');
 
     for (auto current_path: paths){   // find executable paths
         fs::path file_path = fs::path(current_path)/inputs[0];
         if(is_exists_exec(file_path)){
-            system(input.c_str());  // system call user aruments
+            int result = system(input.c_str());  // system call user aruments
+            if (result){
+                return "success";
+            }else{
+                return "unsuccess";
+            }
            
         }
     }
+
+    return "not found";
 }
 
 string invalied_cmd(string input){
