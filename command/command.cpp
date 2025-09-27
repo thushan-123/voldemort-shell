@@ -1,6 +1,7 @@
 #include "command.h"
 #include <vector>
 #include <string>
+#include <cstdlib>
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -83,17 +84,19 @@ string type_cmd(string input, char *path_ptr){
     return "invalid_command: not found";
 }
 
-string custom_execution(string input, char *path_ptr){
+string custom_execution(string input, char *path_ptr){ // run the excutable cmd with arguments
 
     vector<string> inputs = split_by_space(input);
-
+    
+    string user_input = input;
     string path_str(path_ptr);
     vector<string> paths = split_string(path_str, ':');
 
-    for (auto current_path: paths){
+    for (auto current_path: paths){   // find executable paths
         fs::path file_path = fs::path(current_path)/inputs[0];
         if(is_exists_exec(file_path)){
-            return "execute command";
+            system(input.c_str());  // system call user aruments
+           
         }
     }
 
