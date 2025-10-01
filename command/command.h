@@ -22,6 +22,7 @@ string invalied_cmd(std::string input);
 bool is_cmd_exec(string input, char *path_ptr);
 string custom_execution(string input, char *path_ptr);
 string pwdcmd();
+string cdcmd(string input);
 
 #endif
 

@@ -30,6 +30,9 @@ string handle_commands(string input){
     else if(cmd[0] == "pwd"){
         return pwdcmd();
     }
+    else if(cmd[0] == "cd"){
+        return cdcmd(input);
+    }
     else if(is_cmd_exec(cmd[0],path_ptr)){
         return custom_execution(input,path_ptr);
     }

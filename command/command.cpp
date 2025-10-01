@@ -148,6 +148,24 @@ string pwdcmd(){
     return fs::current_path().string();
 }
 
+string cdcmd(string input){
+
+    vector<string> inputs = split_by_space(input);
+
+    if (inputs.size() < 2){
+        return "cd: missing operand";
+    }
+
+    if(fs::exists(fs::path(inputs[1]))){
+        fs::current_path(fs::path(inputs[1].c_str()));
+        return "";
+    }else{
+        return "cd: " + inputs[1] + ": No such file or directory";
+    }
+
+    //string c_path = fs::current_path().string();
+}
+
 string invalied_cmd(string input){
     return "invalied_command: " + input;
 }
