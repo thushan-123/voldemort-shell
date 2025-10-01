@@ -144,6 +144,10 @@ string custom_execution(string input, char *path_ptr){ // run the excutable cmd 
     return "not found";
 }
 
+string pwdcmd(string input){
+    return fs::current_path().string();
+}
+
 string invalied_cmd(string input){
     return "invalied_command: " + input;
 }
