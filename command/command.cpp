@@ -100,11 +100,12 @@ bool is_cmd_exec(string input, char *path_ptr){   // check for the user input is
     return false;
 }
 
+
+
 string custom_execution(string input, char *path_ptr){ // run the excutable cmd with arguments
 
     vector<string> inputs = split_by_space(input);
     
-    string user_input = input;
     string path_str(path_ptr);
     
     vector<string> paths = split_string(path_str, ':');
@@ -112,12 +113,24 @@ string custom_execution(string input, char *path_ptr){ // run the excutable cmd 
     for (auto current_path: paths){   // find executable paths
         fs::path file_path = fs::path(current_path)/inputs[0];
         if(is_exists_exec(file_path)){
-            int result = system(input.c_str());  // system call user aruments
-            if (result){
-                return "success";
-            }else{
-                return "unsuccess";
+
+            string cmd = input + "2>&1"; // cap stderr
+
+            FILE *p = popen(cmd.c_str(), "r"); // run prodram and get output
+
+            if(!p){
+                return "error: failed to run this command " + cmd;
             }
+
+            string output;
+            char buffer[128];
+
+            while (fgets(buffer, sizeof(buffer), p) != nullptr){
+                output += buffer;
+            }
+
+            pclose(p);
+            return output;
            
         }
     }
