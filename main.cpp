@@ -50,7 +50,10 @@ void shell () {
     string input_line;
 
     while (input_line != "exit"){
-        cout << "$ >";
+
+        // show current path in shell
+        string current_path = pwdcmd();
+        cout << "[" << current_path << "]" << " $ > ";
         getline(cin, input_line);
         if(input_line == "exit"){
             break;
