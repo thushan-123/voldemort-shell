@@ -23,11 +23,17 @@ string handle_commands(string input){
 
     if (cmd[0] == "echo"){
         return echo_cmd(input);
-    }else if(cmd[0] == "type") {
+    }
+    else if(cmd[0] == "type") {
         return type_cmd(input, path_ptr);
-    }else if(is_cmd_exec(cmd[0],path_ptr)){
+    }
+    else if(cmd[0] == "pwd"){
+        return pwdcmd();
+    }
+    else if(is_cmd_exec(cmd[0],path_ptr)){
         return custom_execution(input,path_ptr);
-    }else{
+    }
+    else{
         return invalied_cmd(input);
     }
 };

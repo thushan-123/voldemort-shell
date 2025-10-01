@@ -21,6 +21,7 @@ string type_cmd(std::string input, char* path_ptr);
 string invalied_cmd(std::string input);
 bool is_cmd_exec(string input, char *path_ptr);
 string custom_execution(string input, char *path_ptr);
+string pwdcmd();
 
 #endif
 
