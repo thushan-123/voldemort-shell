@@ -92,7 +92,7 @@ bool is_cmd_exec(string input, char *path_ptr){   // check for the user input is
     vector<string> paths = split_string(path_str, ':');
 
     for (auto current_path: paths){
-        fs::path file_path = fs::path(current_path)/inputs[1];
+        fs::path file_path = fs::path(current_path)/inputs[0];
         if(is_exists_exec(file_path)){
             return true;
         }
@@ -100,13 +100,19 @@ bool is_cmd_exec(string input, char *path_ptr){   // check for the user input is
     return false;
 }
 
+string safe_get_path(char *path_ptr) {
+    if (!path_ptr) {
+        return "/usr/bin:/usr/local/bin";
+    }
+    return string(path_ptr);
+}
 
 
 string custom_execution(string input, char *path_ptr){ // run the excutable cmd with arguments
 
     vector<string> inputs = split_by_space(input);
     
-    string path_str(path_ptr);
+    string path_str = safe_get_path(path_ptr);
     
     vector<string> paths = split_string(path_str, ':');
 

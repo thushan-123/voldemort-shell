@@ -13,9 +13,9 @@ set(SOURCES
 )
 
 # create exec file
-add_executable(myshell ${SOURCES})
+add_executable(vdshell ${SOURCES})
 
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(shell stdc++fs)
+    target_link_libraries(vdshell stdc++fs)
 endif()
