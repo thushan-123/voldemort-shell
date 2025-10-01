@@ -79,7 +79,7 @@ int main() {
 
     std::string banner = R"(
             ╔══════════════════════════════════════════════╗
-            ║              VOLDEMORT MAGIC SHELL           ║
+            ║              VOLDEMORT MAGIC SHELL           ║  Developed by thush
             ╚══════════════════════════════════════════════╝
             )";
     
