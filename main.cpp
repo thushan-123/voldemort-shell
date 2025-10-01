@@ -77,6 +77,13 @@ void shell () {
 
 int main() {
 
+    std::string banner = R"(
+            ╔══════════════════════════════════════════════╗
+            ║              VOLDEMORT MAGIC SHELL           ║
+            ╚══════════════════════════════════════════════╝
+            )";
+    
+    cout << banner << endl;
     shell();
 
     return 0;
