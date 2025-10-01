@@ -17,5 +17,5 @@ add_executable(myshell ${SOURCES})
 
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_link_libraries(myshell stdc++fs)
+    target_link_libraries(shell stdc++fs)
 endif()
