@@ -120,7 +120,7 @@ string custom_execution(string input, char *path_ptr){ // run the excutable cmd 
         fs::path file_path = fs::path(current_path)/inputs[0];
         if(is_exists_exec(file_path)){
 
-            string cmd = input + "2>&1"; // cap stderr
+            string cmd = input + " 2>&1"; // cap stderr
 
             FILE *p = popen(cmd.c_str(), "r"); // run prodram and get output
 

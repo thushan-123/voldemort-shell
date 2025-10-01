@@ -49,6 +49,7 @@ void shell () {
         if(input_line == "exit"){
             break;
         }
+        string out = output(input_line);
         cout << output(input_line);
         cout << endl;
 
