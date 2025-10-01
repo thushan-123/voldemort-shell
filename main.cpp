@@ -12,9 +12,9 @@ using namespace std;
 namespace fs = std::filesystem;
 
 
-string handle_commands(string input){
+std::string handle_commands(std::string input){
 
-    vector<string> cmd = split_by_space(input);
+    std::vector<std::string> cmd = split_by_space(input);
 
     char *path_ptr = getenv("PATH");
     if (!path_ptr) {
@@ -41,27 +41,27 @@ string handle_commands(string input){
     }
 };
 
-string output(string str){
+std::string output(std::string str){
 
-    string input = str;
-    string result = handle_commands(input);
+    std::string input = str;
+    std::string result = handle_commands(input);
     return result;
 }
 
 void shell () {
 
-    string input_line;
+    std::string input_line;
 
     while (input_line != "exit"){
 
         // show current path in shell
-        string current_path = pwdcmd();
+        std::string current_path = pwdcmd();
         cout << "[" << current_path << "]" << " $ > ";
         getline(cin, input_line);
         if(input_line == "exit"){
             break;
         }
-        string output_ = output(input_line);
+        std::string output_ = output(input_line);
         char is_new_line = output_[output_.length() -1];
         cout << output_;
         if (is_new_line != '\n'){

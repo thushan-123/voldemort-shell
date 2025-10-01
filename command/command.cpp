@@ -6,20 +6,20 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-vector<string> CMDS_ARRAY = {"type" ,"echo" ,"exit"};
+std::vector<std::string> CMDS_ARRAY = {"type" ,"echo" ,"exit"};
 
-vector<string> split_by_space(const string& input){
-    vector<string> result;
+std::vector<string> split_by_space(const string& input){
+    std::vector<std::string> result;
     istringstream iss(input);
-    string word;
+    std::string word;
     while (iss >> word){
         result.push_back(word);
     }
     return result;
 }
 
-vector<string> split_string(const string& str, char delimiter) {
-    vector<string> tokens;
+std::vector<std::string> split_string(const std::string& str, char delimiter) {
+    std::vector<std::string> tokens;
     std::string currentToken;
     for (char c : str) {
         if (c == delimiter) {
@@ -33,7 +33,7 @@ vector<string> split_string(const string& str, char delimiter) {
     return tokens;
 }
 
-string ls_cmd(){
+std::string ls_cmd(){
     return " ";
 }
 
@@ -48,8 +48,8 @@ bool is_exists_exec(fs::path file_path){
     return false;
 }
 
-string echo_cmd(string input){
-    vector<string> inputs = split_by_space(input);
+std::string echo_cmd(string input){
+    std::vector<std::string> inputs = split_by_space(input);
     if(inputs[0] == "echo"){
         if (inputs.size() > 1){
             return input.substr(5);
@@ -60,22 +60,22 @@ string echo_cmd(string input){
     return " ";
 }
 
-string type_cmd(string input, char *path_ptr){
-    vector<string> inputs = split_by_space(input);
+std::string type_cmd(string input, char *path_ptr){
+    std::vector<std::string> inputs = split_by_space(input);
 
     char *path_ptr1 = path_ptr;
-    string path_str(path_ptr1);
+    std::string path_str(path_ptr1);
 
-    vector<string> paths = split_string(path_str, ':');
+    std::vector<std::string> paths = split_string(path_str, ':');
 
     for (auto current_path: paths){
         fs::path file_path = fs::path(current_path)/inputs[1];
         if(is_exists_exec(file_path) && inputs[1] != "echo"){
-            return inputs[1] + string(" is ") + file_path.string();
+            return inputs[1] + std::string(" is ") + file_path.string();
         }
     }      
 
-    for (const string& cmd : CMDS_ARRAY){
+    for (const std::string& cmd : CMDS_ARRAY){
         if(inputs[1] == cmd){
             return cmd + " is a shell builtin";
         }
@@ -85,11 +85,11 @@ string type_cmd(string input, char *path_ptr){
 }
 
 bool is_cmd_exec(string input, char *path_ptr){   // check for the user input is exists
-    vector<string> inputs = split_by_space(input);
+    std::vector<std::string> inputs = split_by_space(input);
     char *path_ptr1 = path_ptr;
-    string path_str(path_ptr1);
+    std::string path_str(path_ptr1);
 
-    vector<string> paths = split_string(path_str, ':');
+    std::vector<std::string> paths = split_string(path_str, ':');
 
     for (auto current_path: paths){
         fs::path file_path = fs::path(current_path)/inputs[0];
@@ -100,7 +100,7 @@ bool is_cmd_exec(string input, char *path_ptr){   // check for the user input is
     return false;
 }
 
-string safe_get_path(char *path_ptr) {
+std::string safe_get_path(char *path_ptr) {
     if (!path_ptr) {
         return "/usr/bin:/usr/local/bin";
     }
@@ -108,19 +108,19 @@ string safe_get_path(char *path_ptr) {
 }
 
 
-string custom_execution(string input, char *path_ptr){ // run the excutable cmd with arguments
+std::string custom_execution(std::string input, char *path_ptr){ // run the excutable cmd with arguments
 
-    vector<string> inputs = split_by_space(input);
+    std::vector<std::string> inputs = split_by_space(input);
     
-    string path_str = safe_get_path(path_ptr);
+    std::string path_str = safe_get_path(path_ptr);
     
-    vector<string> paths = split_string(path_str, ':');
+    std::vector<std::string> paths = split_string(path_str, ':');
 
     for (auto current_path: paths){   // find executable paths
         fs::path file_path = fs::path(current_path)/inputs[0];
         if(is_exists_exec(file_path)){
 
-            string cmd = input + " 2>&1"; // cap stderr
+            std::string cmd = input + " 2>&1"; // cap stderr
 
             FILE *p = popen(cmd.c_str(), "r"); // run prodram and get output
 
@@ -128,7 +128,7 @@ string custom_execution(string input, char *path_ptr){ // run the excutable cmd 
                 return "error: failed to run this command " + cmd;
             }
 
-            string output;
+            std::string output;
             char buffer[128];
 
             while (fgets(buffer, sizeof(buffer), p) != nullptr){
@@ -144,14 +144,14 @@ string custom_execution(string input, char *path_ptr){ // run the excutable cmd 
     return "not found";
 }
 
-string pwdcmd(){
+std::string pwdcmd(){
     return fs::current_path().string();
 }
 
 
-string cdcmd(string input){
+std::string cdcmd(std::string input){
 
-    vector<string> inputs = split_by_space(input);
+    std::vector<std::string> inputs = split_by_space(input);
 
     if (inputs.size() < 2){
         return "cd: missing operand";
@@ -167,6 +167,6 @@ string cdcmd(string input){
     //string c_path = fs::current_path().string();
 }
 
-string invalied_cmd(string input){
+std::string invalied_cmd(std::string input){
     return "invalied_command: " + input;
 }
