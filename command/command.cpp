@@ -160,7 +160,19 @@ std::string cdcmd(std::string input){
     if(fs::exists(fs::path(inputs[1]))){
         fs::current_path(fs::path(inputs[1].c_str()));
         return "";
-    }else{
+    }else if(inputs[1] == ".."){
+        std:vector<std::string> dirs = split_string(fs::current_path(), '/');
+        std:string new_path;
+
+        for(int x=0; x<dirs.size() -1; x++){
+            new_path = "/" + dirs[x] ;
+        }
+        if(fs::exists(fs::path(new_path))){
+            fs::current_path(fs::path(new_path.c_str()));
+            return "";
+        }
+    }
+    else{
         return "cd: " + inputs[1] + ": No such file or directory";
     }
 
