@@ -23,6 +23,7 @@ bool is_cmd_exec(std::string input, char *path_ptr);
 std::string custom_execution(std::string input, char *path_ptr);
 std::string pwdcmd();
 std::string cdcmd(std::string input);
+std::string catcmd(std::string input);
 
 #endif
 

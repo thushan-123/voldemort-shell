@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <pwd.h>
 #include <unistd.h>
-
+#include <fstream>
 using namespace std;
 namespace fs = std::filesystem;
 
@@ -198,6 +198,31 @@ std::string cdcmd(std::string input){
     // }
     return "cd: " + inputs[1] + ": No such file or directory";
     //string c_path = fs::current_path().string();
+}
+
+std::string catcmd(std::string input){
+    std::vector<std::string> inputs = split_by_space(input);
+
+    // file is exists
+    if(! fs::exists(fs::path(inputs[1]))){
+        return "cat: " + inputs[1] + ": No such file or directory";
+    }
+
+    try {
+        string file_content;
+
+        ifstream read_file(inputs[1]);
+
+        while(getline(read_file, file_content)){
+            file_content += '\n';
+        }
+
+        read_file.close();
+
+        return file_content;
+    }catch (...){
+        return "Error : file read error or not permision to read this file";
+    }
 }
 
 std::string invalied_cmd(std::string input){
