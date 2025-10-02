@@ -213,7 +213,6 @@ std::string catcmd(std::string input){
     }
 
     try {
-        string file_content;
 
         std::ifstream read_file(inputs[1]);
 
