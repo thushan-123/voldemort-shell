@@ -203,6 +203,10 @@ std::string cdcmd(std::string input){
 std::string catcmd(std::string input){
     std::vector<std::string> inputs = split_by_space(input);
 
+    if (inputs.size() < 2) {
+        return "cat: missing file operand";
+    }
+
     // file is exists
     if(! fs::exists(fs::path(inputs[1]))){
         return "cat: " + inputs[1] + ": No such file or directory";
@@ -211,15 +215,22 @@ std::string catcmd(std::string input){
     try {
         string file_content;
 
-        ifstream read_file(inputs[1]);
+        std::ifstream read_file(inputs[1]);
 
-        while(getline(read_file, file_content)){
-            file_content += '\n';
+        if (!read_file.is_open()) {
+            return "cat: " + inputs[1] + ": Permission denied";  // read permission error
+        }
+
+        std::string file_content;
+        std::string line;
+
+        while (std::getline(read_file, line)) {
+            file_content += line + "\n";
         }
 
         read_file.close();
-
         return file_content;
+
     }catch (...){
         return "Error : file read error or not permision to read this file";
     }
