@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <pwd.h>
+#include <unistd.h>
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -152,6 +154,7 @@ std::string pwdcmd(){
 std::string cdcmd(std::string input){
 
     std::vector<std::string> inputs = split_by_space(input);
+    std:vector<std::string> dirs = split_string(fs::current_path(), '/');
 
     if (inputs.size() < 2){
         return "cd: missing operand";
@@ -161,7 +164,7 @@ std::string cdcmd(std::string input){
         fs::current_path(fs::path(inputs[1].c_str()));
         return "";
     }else if(inputs[1] == ".."){
-        std:vector<std::string> dirs = split_string(fs::current_path(), '/');
+        
         string new_path;
 
         for(int x=0; x<dirs.size() -1; x++){
@@ -170,6 +173,24 @@ std::string cdcmd(std::string input){
         if(fs::exists(fs::path(new_path))){
             fs::current_path(fs::path(new_path.c_str()));
             return "";
+        }
+    }else if (inputs[1] == "~"){
+        string home_path;
+
+        const char * home = getenv("HOME");
+
+        if (!home) {
+        struct passwd* pw = getpwuid(getuid());
+        if (pw) {
+            home = pw->pw_dir;
+        }
+    }
+
+        if(home && fs::exists(fs::path(home))){
+            fs::current_path(fs::path(home));
+            return "";
+        }else{
+            return "can not find home dir";
         }
     }
     // else{
