@@ -33,6 +33,9 @@ std::string handle_commands(std::string input){
     else if(cmd[0] == "cd"){
         return cdcmd(input);
     }
+    else if(cmd[0] == "cat"){
+        return catcmd(input);
+    }
     else if(is_cmd_exec(cmd[0],path_ptr)){
         return custom_execution(input,path_ptr);
     }
