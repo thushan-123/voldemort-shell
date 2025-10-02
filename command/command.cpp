@@ -162,7 +162,7 @@ std::string cdcmd(std::string input){
         return "";
     }else if(inputs[1] == ".."){
         std:vector<std::string> dirs = split_string(fs::current_path(), '/');
-        std:string new_path;
+        string new_path;
 
         for(int x=0; x<dirs.size() -1; x++){
             new_path = "/" + dirs[x] ;
@@ -172,10 +172,10 @@ std::string cdcmd(std::string input){
             return "";
         }
     }
-    else{
-        return "cd: " + inputs[1] + ": No such file or directory";
-    }
-
+    // else{
+    //     return "cd: " + inputs[1] + ": No such file or directory";
+    // }
+    return "cd: " + inputs[1] + ": No such file or directory";
     //string c_path = fs::current_path().string();
 }
 
